@@ -26,6 +26,7 @@ const Login = () => {
   const { phoneNumber, password, openSnackbar, snackBarMessage, severity } =
     values;
   const navigate = useNavigate();
+  
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
@@ -55,8 +56,6 @@ const Login = () => {
           severity: "error",
           openSnackbar: true,
         });
-        // } else if (err.response?.status === false)
-        //   setErrMsg("Wrong username or Password");
       }
     }
   };
