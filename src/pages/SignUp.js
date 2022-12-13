@@ -12,14 +12,18 @@ import {
 // Custom Components
 import SnackBarNotification from "../components/common/SnackBarNotification";
 
+// Functions
+import { signup } from "../functions/auth";
+
 const SignUp = () => {
   const [values, setValues] = useState({
     phoneNumber: "",
     password: "",
-    message: "",
+    snackBarMessage: "",
     openSnackbar: false,
+    severity: "success",
   });
-  const { phoneNumber, password, openSnackbar, message } = values;
+  const { phoneNumber, password, openSnackbar, snackBarMessage, severity } = values;
   const navigate = useNavigate();
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -38,16 +42,24 @@ const SignUp = () => {
       console.log("PHONE NUMBER", phoneNumber, "PASSWORD", password);
 
       try {
-        // const userData = await login({ username, password }).unwrap();
+        const res = await signup(phoneNumber, password);
         // dispatch(setCredentials({ ...userData, username }));
-        // setValues({ ...values, username: "", paswword: "", opensnackbar: true });
-        navigate("/homepage");
+        console.log(res);
+        setValues({
+          ...values,
+          snackBarMessage: res.data.message,
+          severity: "success",
+          openSnackbar: true,
+        });
+        navigate("/sign-in");
       } catch (err) {
-        if (!err?.response) {
-          //   setErrMsg("No server response");
-          // } else if (err.response?.status === false)
-          //   setErrMsg("Wrong username or Password");
-        }
+        console.log(err);
+        setValues({
+          ...values,
+          snackBarMessage: err.response.data.error,
+          severity: "error",
+          openSnackbar: true,
+        });
       }
     }
   };
@@ -58,10 +70,10 @@ const SignUp = () => {
         <SnackBarNotification
           openSnackbar={openSnackbar}
           handleClose={handleClose}
-          message={message}
-          severity={"success"}
+          snackBarMessage={snackBarMessage}
+          severity={severity}
         />
-        <Typography variant="h4" fontWeight="600" sx={{mt:5}}>
+        <Typography variant="h4" fontWeight="600" sx={{ mt: 5 }}>
           E-Nauli
         </Typography>
 
