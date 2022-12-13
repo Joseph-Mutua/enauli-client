@@ -12,7 +12,7 @@ import {
 // Custom Components
 import SnackBarNotification from "../components/common/SnackBarNotification";
 
-const LandingPage = () => {
+const SignUp = () => {
   const [values, setValues] = useState({
     phoneNumber: "",
     password: "",
@@ -68,10 +68,10 @@ const LandingPage = () => {
         <form autoComplete="off" onSubmit={(e) => handleSubmit(e)}>
           <Box sx={{ mt: 5 }}>
             <Typography>
-              New on E-Nauli? <Link to={"/sign-up"}>Sign Up</Link>
+              Already on E-Nauli? <Link to={"/"}>Sign In</Link>
             </Typography>
             <Typography variant="h5" sx={{ mt: 5 }}>
-              SIGN IN
+              SIGN UP
             </Typography>
             <Typography sx={{ mt: 4 }} fontWeight="500">
               Phone Number
@@ -90,15 +90,6 @@ const LandingPage = () => {
               name="password"
               value={password}
             />
-            <Box sx={{}}>
-              <Link
-                sx={{ textDecoration: "none" }}
-                component={Link}
-                to={"/forgot-password"}
-              >
-                Forgot Password?
-              </Link>
-            </Box>
           </Box>
           <Box sx={{ mb: 5 }}>
             {" "}
@@ -108,7 +99,7 @@ const LandingPage = () => {
               sx={{ bgcolor: "secondary.main", color: "white", mt: 2 }}
               variant="contained"
             >
-              Sign In
+              Sign Up
             </Button>
           </Box>
         </form>
@@ -117,4 +108,4 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage;
+export default SignUp;
