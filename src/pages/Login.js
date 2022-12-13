@@ -77,12 +77,19 @@ const Login = () => {
               Phone Number
             </Typography>
             <TextField
-            
               onChange={handleChange("phoneNumber")}
               name="phoneNumber"
               value={phoneNumber}
             />
-
+            <Typography sx={{ mt: 4 }} fontWeight="500">
+              Password
+            </Typography>
+            <TextField
+              type="password"
+              onChange={handleChange("password")}
+              name="password"
+              value={password}
+            />
             <Box sx={{}}>
               <Link
                 sx={{ textDecoration: "none" }}
