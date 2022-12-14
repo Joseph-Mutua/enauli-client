@@ -26,7 +26,7 @@ const Login = () => {
   const { phoneNumber, password, openSnackbar, snackBarMessage, severity } =
     values;
   const navigate = useNavigate();
-  
+
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
@@ -45,8 +45,16 @@ const Login = () => {
 
       try {
         const userData = await signin(phoneNumber, password);
-
         console.log(userData);
+        setValues({
+          ...values,
+          snackBarMessage: "Welcome to E-Nauli!",
+          severity: "success",
+          openSnackbar: true,
+        });
+
+        // Save response to localstorage/cookie
+
         navigate("/homepage");
       } catch (err) {
         console.log(err.response.data.error);

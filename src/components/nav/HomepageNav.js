@@ -13,7 +13,7 @@ const HomepageNav = () => {
   return (
     <Box
       display="flex"
-    justifyContent="flex-start"
+      justifyContent="flex-start"
       sx={{
         flexGrow: 1,
         "& .MuiTab-root": {
@@ -36,9 +36,10 @@ const HomepageNav = () => {
         <Tab label="Sacco" />
         <Tab label="Officials" />
         <Tab label="Stations" />
-        <Tab label="Charge"/>
-        <Tab label="Vehicles"/>
-        <Tab label="Operators"/>
+        <Tab label="Charge" />
+        <Tab label="Vehicles" />
+        <Tab label="Operators" />
+        <Tab label="Balance" />
       </Tabs>
     </Box>
   );
