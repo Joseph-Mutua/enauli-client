@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Container,
@@ -13,7 +13,8 @@ import {
 import SnackBarNotification from "../components/common/SnackBarNotification";
 
 // Functions
-import { signup } from "../functions/auth";
+import { loadProfile, updateProfile } from "../functions/user";
+import { isAuth } from "../helpers/auth";
 
 const ChangePassword = () => {
   const [values, setValues] = useState({
@@ -25,6 +26,24 @@ const ChangePassword = () => {
   });
   const { phoneNumber, password, openSnackbar, snackBarMessage, severity } =
     values;
+
+  const userId = isAuth()._id;
+
+
+  const getUserInfo = () =>
+    loadProfile(userId)
+      .then((res) => {
+        const { phoneNumber } = res.data;
+        setValues({ ...values, phoneNumber });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+  useEffect(() => {
+    getUserInfo();
+  },[]);
+
   const navigate = useNavigate();
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -39,14 +58,14 @@ const ChangePassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (phoneNumber && password) {
-      console.log("PHONE NUMBER", phoneNumber, "PASSWORD", password);
+    if (password) {
+      console.log("PASSWORD", password);
 
       try {
-        const res = await signup(phoneNumber, password);
+        const res = await updateProfile(userId, password);
         console.log(res);
 
-        navigate("/");
+        navigate("/homepage");
         setValues({
           ...values,
           snackBarMessage: res.data.message,
@@ -88,6 +107,7 @@ const ChangePassword = () => {
               Phone Number
             </Typography>
             <TextField
+              disabled
               onChange={handleChange("phoneNumber")}
               name="phoneNumber"
               value={phoneNumber}
