@@ -7,6 +7,7 @@ import SignUp from "./pages/SignUp";
 import ResetPassword from "./pages/ResetPassword";
 import Homepage from "./pages/Homepage";
 import PrivateRoute from "./pages/PrivateRoute";
+import ChangePassword from "./pages/ChangePassword";
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        <Route path="change-password" element={<ChangePassword/>}/>
       </Routes>
     </div>
   );
