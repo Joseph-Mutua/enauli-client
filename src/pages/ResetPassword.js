@@ -13,22 +13,30 @@ import {
 // Custom Components
 import SnackBarNotification from "../components/common/SnackBarNotification";
 
+// Functions
+import { forgotPassword, resetPassword } from "../functions/auth";
+import { updateUser } from "../helpers/auth";
+
 const ResetPassword = () => {
   const [values, setValues] = useState({
     phoneNumber: "",
     password: "",
     passwordConfirmation: "",
     showPasswordForm: false,
-    message: "",
+    snackBarMessage: "",
     openSnackbar: false,
+    severity: "success",
+    otp: "",
   });
   const {
     phoneNumber,
     password,
     passwordConfirmation,
     openSnackbar,
-    message,
+    snackBarMessage,
+    severity,
     showPasswordForm,
+    otp,
   } = values;
   const navigate = useNavigate();
   const handleChange = (prop) => (event) => {
@@ -42,28 +50,54 @@ const ResetPassword = () => {
     setValues({ ...values, openSnackbar: false });
   };
 
-  const handleGetOtp = () => {
+  const handleGetOtp = async () => {
+    if (phoneNumber) {
+      const res = await forgotPassword(phoneNumber);
+      console.log("FORGOT PASSWORD RESPONSE", res);
+    }
     setValues({ ...values, showPasswordForm: true });
   };
   const handleResendOtp = () => {};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (phoneNumber && password) {
-      console.log("PHONE NUMBER", phoneNumber, "PASSWORD", password);
+    if (password === passwordConfirmation) {
+      console.log(
+        "PHONE NUMBER",
+        phoneNumber,
+        "PASSWORD",
+        password,
+        "OTP",
+        otp
+      );
 
       try {
-        // const userData = await login({ username, password }).unwrap();
-        // dispatch(setCredentials({ ...userData, username }));
-        // setValues({ ...values, username: "", paswword: "", opensnackbar: true });
-        navigate("/homepage");
+        const response = await resetPassword(phoneNumber, password, otp);
+        console.log(response);
+        updateUser(response.data, () => {
+          setValues({
+            ...values,
+            snackBarMessage: "Password Successfullly Reset!",
+            severity: "success",
+            openSnackbar: true,
+          });
+          navigate("/homepage");
+        });
+        // navigate("/");
       } catch (err) {
-        if (!err?.response) {
-          //   setErrMsg("No server response");
-          // } else if (err.response?.status === false)
-          //   setErrMsg("Wrong username or Password");
-        }
+        console.log("RESET PASSWORD ERROR", err);
+        setValues({
+          ...values,
+          snackBarMessage: err.error,
+          opensnackbar: true,
+        });
       }
+    } else {
+      setValues({
+        ...values,
+        snackBarMessage: "Passwords Do Not Match",
+        opensnackbar: true,
+      });
     }
   };
 
@@ -73,8 +107,8 @@ const ResetPassword = () => {
         <SnackBarNotification
           openSnackbar={openSnackbar}
           handleClose={handleClose}
-          message={message}
-          severity={"success"}
+          snackBarMessage={snackBarMessage}
+          severity={severity}
         />
         <Typography variant="h4" fontWeight="600" sx={{ mt: 5 }}>
           E-Nauli
@@ -112,9 +146,9 @@ const ResetPassword = () => {
                   <TextField
                     placeholder="Enter OTP Code Here"
                     type="password"
-                    onChange={handleChange("password")}
-                    name="password"
-                    value={password}
+                    onChange={handleChange("otp")}
+                    name="otp"
+                    value={otp}
                   />
                 </Box>
                 <Typography>
@@ -134,8 +168,8 @@ const ResetPassword = () => {
 
                 <Box sx={{ mt: 4 }}>
                   <TextField
+                    type="password"
                     placeholder="Confirm Pin"
-                    type="passwordConfirmation"
                     onChange={handleChange("passwordConfirmation")}
                     name="passwordConfirmation"
                     value={passwordConfirmation}

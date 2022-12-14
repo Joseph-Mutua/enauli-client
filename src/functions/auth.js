@@ -13,3 +13,17 @@ export const signin = async (phoneNumber, password) => {
     password,
   });
 };
+
+export const forgotPassword = async (phoneNumber) => {
+  return await axios.post(`${process.env.REACT_APP_API}/user/forgot-password`, {
+    phoneNumber,
+  });
+};
+
+export const resetPassword = async (phoneNumber, password, otp) => {
+  return await axios.post(`${process.env.REACT_APP_API}/user/reset-password`, {
+    phoneNumber,
+    password,
+    otp,
+  });
+};

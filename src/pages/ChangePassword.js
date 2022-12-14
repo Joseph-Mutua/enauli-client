@@ -14,7 +14,7 @@ import SnackBarNotification from "../components/common/SnackBarNotification";
 
 // Functions
 import { loadProfile, updateProfile } from "../functions/user";
-import { isAuth } from "../helpers/auth";
+import { isAuth, updateUser } from "../helpers/auth";
 
 const ChangePassword = () => {
   const [values, setValues] = useState({
@@ -29,7 +29,6 @@ const ChangePassword = () => {
 
   const userId = isAuth()._id;
 
-
   const getUserInfo = () =>
     loadProfile(userId)
       .then((res) => {
@@ -42,7 +41,7 @@ const ChangePassword = () => {
 
   useEffect(() => {
     getUserInfo();
-  },[]);
+  }, []);
 
   const navigate = useNavigate();
   const handleChange = (prop) => (event) => {
@@ -64,13 +63,14 @@ const ChangePassword = () => {
       try {
         const res = await updateProfile(userId, password);
         console.log(res);
-
-        navigate("/homepage");
-        setValues({
-          ...values,
-          snackBarMessage: res.data.message,
-          severity: "success",
-          openSnackbar: true,
+        updateUser(res, () => {
+          setValues({
+            ...values,
+            snackBarMessage: res.data.message,
+            severity: "success",
+            openSnackbar: true,
+          });
+          navigate("/homepage");
         });
       } catch (err) {
         console.log(err);
