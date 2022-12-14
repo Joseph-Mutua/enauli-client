@@ -43,15 +43,15 @@ const SignUp = () => {
 
       try {
         const res = await signup(phoneNumber, password);
-        // dispatch(setCredentials({ ...userData, username }));
         console.log(res);
-        setValues({
-          ...values,
-          snackBarMessage: res.data.message,
-          severity: "success",
-          openSnackbar: true,
-        });
-        navigate("/sign-in");
+       
+        navigate("/");
+         setValues({
+           ...values,
+           snackBarMessage: res.data.message,
+           severity: "success",
+           openSnackbar: true,
+         });
       } catch (err) {
         console.log(err);
         setValues({

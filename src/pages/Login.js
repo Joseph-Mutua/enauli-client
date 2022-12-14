@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate} from "react-router-dom";
 import {
   Container,
   Stack,
@@ -13,6 +13,7 @@ import {
 import SnackBarNotification from "../components/common/SnackBarNotification";
 
 // functions
+import { authenticate, isAuth } from "../helpers/auth";
 import { signin } from "../functions/auth";
 
 const Login = () => {
@@ -25,7 +26,7 @@ const Login = () => {
   });
   const { phoneNumber, password, openSnackbar, snackBarMessage, severity } =
     values;
-  const navigate = useNavigate();
+  
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -44,18 +45,18 @@ const Login = () => {
       console.log("PHONE NUMBER", phoneNumber, "PASSWORD", password);
 
       try {
-        const userData = await signin(phoneNumber, password);
-        console.log(userData);
-        setValues({
+        const response = await signin(phoneNumber, password);
+        console.log(response);
+        await authenticate(response, () => {  setValues({
           ...values,
           snackBarMessage: "Welcome to E-Nauli!",
           severity: "success",
           openSnackbar: true,
-        });
+        });})
 
-        // Save response to localstorage/cookie
+        // Save response to localStorage/cookie
 
-        navigate("/homepage");
+     
       } catch (err) {
         console.log(err.response.data.error);
         setValues({
@@ -77,6 +78,7 @@ const Login = () => {
           snackBarMessage={snackBarMessage}
           severity={severity}
         />
+        {isAuth()? <Navigate to="/homepage"/>: null }
         <Typography variant="h4" fontWeight="600" sx={{ mt: 5 }}>
           E-Nauli
         </Typography>
