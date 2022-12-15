@@ -15,7 +15,7 @@ const Homepage = () => {
     <Box>
       <UserProfile />
       <Typography sx={{ mt: 5 }} variant="h4" fontWeight="500">
-        Homepage
+        E-Nauli
       </Typography>
 
       <Grid container spacing={3}>

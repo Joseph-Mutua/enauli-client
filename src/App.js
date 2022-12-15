@@ -18,6 +18,8 @@ import CreateStation from "./components/station/CreateStation";
 import UpdateStation from "./components/station/UpdateStation";
 import CreateVehicle from "./components/vehicle/CreateVehicle";
 import UpdateVehicle from "./components/vehicle/UpdateVehicle";
+import CreateCharge from "./components/charge/CreateCharge";
+import Balance from "./components/balance";
 
 function App() {
   return (
@@ -50,6 +52,10 @@ function App() {
 
           <Route path="vehicles" element={<CreateVehicle />} />
           <Route path="vehicles/:slug" element={<UpdateVehicle />} />
+
+          <Route path="charge" element={<CreateCharge />} />
+
+          <Route path="balance" element={<Balance />} />
         </Route>
 
         <Route path="change-password" element={<ChangePassword />} />
