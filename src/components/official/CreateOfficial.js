@@ -10,24 +10,29 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { listSaccos, createSacco, removeSacco } from "../../functions/sacco";
-
-import { setSacco } from "../../helpers/sacco";
-
-const CreateSacco = () => {
-  const [saccoName, setSaccoName] = useState("");
-  const [saccos, setSaccos] = useState([]);
 
 
-  const navigate = useNavigate();
+import { listOfficials, createOfficial, removeOfficial } from "../../functions/official";
+
+
+
+
+const CreateOfficial = () => {
+const [officialName, setOfficialName] = useState("")
+const [phoneNumber, setPhoneNumber] = useState("");
+const [officials, setOfficials] = useState([]);
+
+
+
+const navigate = useNavigate();
   useEffect(() => {
-    loadSaccos();
+    loadOfficials();
   }, []);
 
-  const loadSaccos = () => {
-    listSaccos()
+  const loadOfficials = () => {
+    listOfficials()
       .then((res) => {
-        setSaccos(res.data);
+        setOfficials(res.data);
         console.log(res.data);
       })
       .catch((err) => {
@@ -35,17 +40,14 @@ const CreateSacco = () => {
       });
   };
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (saccoName) {
-      console.log("SACCO", saccoName);
+    if (officialName && phoneNumber) {
+      console.log("OFFCICIAL", officialName);
       try {
-        createSacco(saccoName).then((res) => {
+        createOfficial(officialName, phoneNumber).then((res) => {
           console.log(res);
-          setSacco("sacco", res.data);
-          loadSaccos();
+          loadOfficials();
         });
       } catch (err) {
         console.log(err);
@@ -54,11 +56,11 @@ const CreateSacco = () => {
     }
   };
   const handleRemove = async (slug) => {
-    if (window.confirm(`Are you sure you want to Delete Sacco ${slug} ?`)) {
-      removeSacco(slug)
+    if (window.confirm(`Are you sure you want to Delete official ${slug} ?`)) {
+      removeOfficial(slug)
         .then((res) => {
           console.log(res);
-          loadSaccos();
+          loadOfficials();
         })
         .catch((err) => {
           console.log(err);
@@ -71,16 +73,28 @@ const CreateSacco = () => {
       <form autoComplete="off" onSubmit={handleSubmit}>
         <Box sx={{ mt: 5 }}>
           <Typography variant="h5" sx={{ mt: 5 }}>
-            Create Sacco
+            Create Official
           </Typography>
           <Typography sx={{ mt: 4 }} fontWeight="500">
             Name
           </Typography>
           <TextField
-            name="saccoName"
+            name="officialName"
             fullWidth
-            onChange={(e) => setSaccoName(e.target.value)}
-            value={saccoName}
+            onChange={(e) => setOfficialName(e.target.value)}
+            value={officialName}
+          />
+        </Box>
+        <Box sx={{ mt: 2 }}>
+          {" "}
+          <Typography sx={{ mt: 4 }} fontWeight="500">
+            Phone Number
+          </Typography>
+          <TextField
+            name="phoneNumber"
+            fullWidth
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            value={phoneNumber}
           />
         </Box>
         <Box sx={{ mb: 5 }}>
@@ -96,20 +110,21 @@ const CreateSacco = () => {
           </Button>
         </Box>
       </form>
-      {saccos.map((sacco) => (
+      {officials.map((official) => (
         <Stack
           direction="row"
           justifyContent="space-between"
           sx={{ bgcolor: "#E8E8E8", my: 2 }}
-          key={sacco._id}
+          key={official._id}
         >
-          {sacco.name}{" "}
+          <Box>{official.name}</Box>
+          <Box>{official.phoneNumber}</Box>
           <Box>
             {" "}
-            <IconButton onClick={() => navigate(`${sacco.slug}`)}>
+            <IconButton onClick={() => navigate(`${official.slug}`)}>
               <EditIcon />
             </IconButton>
-            <IconButton onClick={() => handleRemove(sacco.slug)}>
+            <IconButton onClick={() => handleRemove(official.slug)}>
               <DeleteIcon />
             </IconButton>
           </Box>
@@ -119,4 +134,4 @@ const CreateSacco = () => {
   );
 };
 
-export default CreateSacco;
+export default CreateOfficial;

@@ -10,6 +10,8 @@ import PrivateRoute from "./pages/PrivateRoute";
 import ChangePassword from "./pages/ChangePassword";
 import CreateSacco from "./components/sacco/CreateSacco";
 import UpdateSacco from "./components/sacco/UpdateSacco";
+import CreateOfficial from "./components/official/CreateOfficial";
+import UpdateOfficial from "./components/official/UpdateOfficial";
 
 function App() {
   return (
@@ -27,12 +29,15 @@ function App() {
             </PrivateRoute>
           }
         >
-          <Route index element={<CreateSacco/>}/>
-          <Route path="sacco" element={<CreateSacco/>}/>
-          <Route path="sacco/:slug" element={<UpdateSacco/>}/>
+          <Route index element={<CreateSacco />} />
+          <Route path="sacco" element={<CreateSacco />} />
+          <Route path="sacco/:slug" element={<UpdateSacco />} />
+
+          <Route path="officials" element={<CreateOfficial />} />
+          <Route path="officials/:slug" element={<UpdateOfficial />} />
         </Route>
 
-        <Route path="change-password" element={<ChangePassword/>}/>
+        <Route path="change-password" element={<ChangePassword />} />
       </Routes>
     </div>
   );
