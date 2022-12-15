@@ -12,26 +12,26 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import {
-  listStations,
-  createStation,
-  removeStation,
-} from "../../functions/station";
+  listVehicles,
+  createVehicle,
+  removeVehicle,
+} from "../../functions/vehicle";
 
-const CreateStation = () => {
-  const [stationName, setStationName] = useState("");
-  const [location, setLocation] = useState("");
-  const [stations, setStations] = useState([]);
+const CreateVehicle = () => {
+  const [model, setModel] = useState("");
+  const [numberPlate, setNumberPlate] = useState("");
+  const [vehicles, setVehicles] = useState([]);
 
   const navigate = useNavigate();
   useEffect(() => {
-    loadStations();
+    loadVehicles();
   }, []);
 
-  const loadStations = () => {
-    listStations()
+  const loadVehicles = () => {
+    listVehicles()
       .then((res) => {
-        setStations(res.data);
-        console.log("station LIST RES", res.data);
+        setVehicles(res.data);
+        console.log("vehicle LIST RES", res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -40,12 +40,12 @@ const CreateStation = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (stationName && location) {
-      console.log("OFFCICIAL", stationName);
+    if (model && numberPlate) {
+      console.log("OFFCICIAL", model);
       try {
-        createStation(stationName, location).then((res) => {
+        createVehicle(model, numberPlate).then((res) => {
           console.log(res);
-          loadStations();
+          loadVehicles();
         });
       } catch (err) {
         console.log(err);
@@ -54,11 +54,11 @@ const CreateStation = () => {
     }
   };
   const handleRemove = async (slug) => {
-    if (window.confirm(`Are you sure you want to Delete station ${slug} ?`)) {
-      removeStation(slug)
+    if (window.confirm(`Are you sure you want to Delete vehicle ${slug} ?`)) {
+      removeVehicle(slug)
         .then((res) => {
           console.log(res);
-          loadStations();
+          loadVehicles();
         })
         .catch((err) => {
           console.log(err);
@@ -71,28 +71,28 @@ const CreateStation = () => {
       <form autoComplete="off" onSubmit={handleSubmit}>
         <Box sx={{ mt: 5 }}>
           <Typography variant="h5" sx={{ mt: 5 }}>
-            Create station
+            Create vehicle
           </Typography>
           <Typography sx={{ mt: 4 }} fontWeight="500">
-            Name
+            Vehicle Model
           </Typography>
           <TextField
-            name="stationName"
+            name="model"
             fullWidth
-            onChange={(e) => setStationName(e.target.value)}
-            value={stationName}
+            onChange={(e) => setModel(e.target.value)}
+            value={model}
           />
         </Box>
         <Box sx={{ mt: 2 }}>
           {" "}
           <Typography sx={{ mt: 4 }} fontWeight="500">
-           Location
+            Number Plate
           </Typography>
           <TextField
-            name="location"
+            name="numberPlate"
             fullWidth
-            onChange={(e) => setLocation(e.target.value)}
-            value={location}
+            onChange={(e) => setNumberPlate(e.target.value)}
+            value={numberPlate}
           />
         </Box>
         <Box sx={{ mb: 5 }}>
@@ -108,21 +108,21 @@ const CreateStation = () => {
           </Button>
         </Box>
       </form>
-      {stations.map((station) => (
+      {vehicles.map((vehicle) => (
         <Stack
           direction="row"
           justifyContent="space-between"
           sx={{ bgcolor: "#E8E8E8", my: 2 }}
-          key={station._id}
+          key={vehicle._id}
         >
-          <Box>{station.name}</Box>
-          <Box>{station.location}</Box>
+          <Box>{vehicle.model}</Box>
+          <Box>{vehicle.numberPlate}</Box>
           <Box>
             {" "}
-            <IconButton onClick={() => navigate(`${station.slug}`)}>
+            <IconButton onClick={() => navigate(`${vehicle.slug}`)}>
               <EditIcon />
             </IconButton>
-            <IconButton onClick={() => handleRemove(station.slug)}>
+            <IconButton onClick={() => handleRemove(vehicle.slug)}>
               <DeleteIcon />
             </IconButton>
           </Box>
@@ -132,4 +132,4 @@ const CreateStation = () => {
   );
 };
 
-export default CreateStation;
+export default CreateVehicle;

@@ -18,7 +18,7 @@ export const readVehicle = async (slug) => {
 export const updateVehicle = async (model, numberPlate, slug) => {
   return await axios.put(`${process.env.REACT_APP_API}/vehicle/${slug}`, {
     model,
-    phoneNumber,
+    numberPlate,
   });
 };
 
