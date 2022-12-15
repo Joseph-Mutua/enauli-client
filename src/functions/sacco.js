@@ -24,18 +24,18 @@ export const removeSacco = async (slug) => {
   return await axios.delete(`${process.env.REACT_APP_API}/sacco/${slug}`, {});
 };
 
-export const getOfficials = async (id) => {
-  return await axios.get(`${process.env.REACT_APP_API}/sacco/officials/${id}`);
+export const getOfficials = async (_id) => {
+  return await axios.get(`${process.env.REACT_APP_API}/sacco/officials/${_id}`);
 };
 
-export const getStations = async (id) => {
-  return await axios.get(`${process.env.REACT_APP_API}/sacco/stations/${id}`);
+export const getStations = async (_id) => {
+  return await axios.get(`${process.env.REACT_APP_API}/sacco/stations/${_id}`);
 };
 
-export const getVehicles = async (id) => {
-  return await axios.get(`${process.env.REACT_APP_API}/sacco/vehicles/${id}`);
+export const getVehicles = async (_id) => {
+  return await axios.get(`${process.env.REACT_APP_API}/sacco/vehicles/${_id}`);
 };
 
-export const getBalance = async (id) => {
-  return await axios.get(`${process.env.REACT_APP_API}/sacco/balance/${id}`);
+export const getBalance = async (_id) => {
+  return await axios.get(`${process.env.REACT_APP_API}/sacco/balance/${_id}`);
 };

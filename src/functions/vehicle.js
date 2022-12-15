@@ -25,3 +25,6 @@ export const updateVehicle = async (model, numberPlate, slug) => {
 export const removeVehicle = async (slug) => {
   return await axios.delete(`${process.env.REACT_APP_API}/vehicle/${slug}`, {});
 };
+export const getOperators = async (_id) => {
+  return await axios.get(`${process.env.REACT_APP_API}/vehicle/operators/${_id}`);
+};
