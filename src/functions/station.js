@@ -11,7 +11,7 @@ export const listStations = async () => {
   return await axios.get(`${process.env.REACT_APP_API}/stations`, {});
 };
 
-export const readStations = async (slug) => {
+export const readStation = async (slug) => {
   return await axios.get(`${process.env.REACT_APP_API}/station/${slug}`, {});
 };
 
