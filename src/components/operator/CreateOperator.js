@@ -71,7 +71,7 @@ const CreateOperator = () => {
       <form autoComplete="off" onSubmit={handleSubmit}>
         <Box sx={{ mt: 5 }}>
           <Typography variant="h5" sx={{ mt: 5 }}>
-            Create operator
+            Add Vehicle Operator
           </Typography>
           <Typography sx={{ mt: 4 }} fontWeight="500">
             Name
@@ -104,7 +104,7 @@ const CreateOperator = () => {
             sx={{ bgcolor: "secondary.main", color: "white", mt: 2 }}
             variant="contained"
           >
-            Create
+            Add
           </Button>
         </Box>
       </form>
