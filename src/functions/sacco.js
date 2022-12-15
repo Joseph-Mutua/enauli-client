@@ -1,8 +1,9 @@
 import axios from "axios";
 
-export const createSacco = async (name) => {
+export const createSacco = async (name, ) => {
   return await axios.post(`${process.env.REACT_APP_API}/sacco`, {
     name,
+    
   });
 };
 
@@ -11,7 +12,7 @@ export const listSaccos = async () => {
 };
 
 export const readSacco = async (slug) => {
-  return await axios.get(`${process.env.REACT_APP_API}/sacco/${slug}`, {});
+  return await axios.get(`${process.env.REACT_APP_API}/sacco/${slug}`);
 };
 
 export const updateSacco = async (name, slug) => {

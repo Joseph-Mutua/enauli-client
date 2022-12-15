@@ -8,6 +8,8 @@ import ResetPassword from "./pages/ResetPassword";
 import Homepage from "./pages/Homepage";
 import PrivateRoute from "./pages/PrivateRoute";
 import ChangePassword from "./pages/ChangePassword";
+import CreateSacco from "./components/sacco/CreateSacco";
+import UpdateSacco from "./components/sacco/UpdateSacco";
 
 function App() {
   return (
@@ -24,7 +26,11 @@ function App() {
               <Homepage />
             </PrivateRoute>
           }
-        />
+        >
+          <Route index element={<CreateSacco/>}/>
+          <Route path="sacco" element={<CreateSacco/>}/>
+          <Route path="sacco/:slug" element={<UpdateSacco/>}/>
+        </Route>
 
         <Route path="change-password" element={<ChangePassword/>}/>
       </Routes>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
 
 import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
@@ -12,7 +13,7 @@ import UserProfile from "../components/nav/UserProfile";
 const Homepage = () => {
   return (
     <Box>
-      <UserProfile/>
+      <UserProfile />
       <Typography sx={{ mt: 5 }} variant="h4" fontWeight="500">
         Homepage
       </Typography>
@@ -25,7 +26,10 @@ const Homepage = () => {
             <HomepageNav />
           </Box>
         </Grid>
-        <Grid xs={8}></Grid>
+        <Grid xs={8}>
+          {" "}
+          <Outlet />
+        </Grid>
         <Grid xs={2}></Grid>
       </Grid>
     </Box>
