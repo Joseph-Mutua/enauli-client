@@ -12,6 +12,8 @@ import CreateSacco from "./components/sacco/CreateSacco";
 import UpdateSacco from "./components/sacco/UpdateSacco";
 import CreateOfficial from "./components/official/CreateOfficial";
 import UpdateOfficial from "./components/official/UpdateOfficial";
+import CreateOperator from "./components/operator/CreateOperator";
+import UpdateOperator from './components/operator/UpdateOperator';
 
 function App() {
   return (
@@ -35,6 +37,9 @@ function App() {
 
           <Route path="officials" element={<CreateOfficial />} />
           <Route path="officials/:slug" element={<UpdateOfficial />} />
+
+          <Route path="operators" element={<CreateOperator />} />
+          <Route path="operators/:slug" element={<UpdateOperator />} />
         </Route>
 
         <Route path="change-password" element={<ChangePassword />} />
