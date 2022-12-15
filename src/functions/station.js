@@ -18,7 +18,7 @@ export const readStation = async (slug) => {
 export const updateStation = async (name, location, slug) => {
   return await axios.put(`${process.env.REACT_APP_API}/station/${slug}`, {
     name,
-    phoneNumber,
+    location,
   });
 };
 

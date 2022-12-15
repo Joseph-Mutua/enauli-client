@@ -14,6 +14,8 @@ import CreateOfficial from "./components/official/CreateOfficial";
 import UpdateOfficial from "./components/official/UpdateOfficial";
 import CreateOperator from "./components/operator/CreateOperator";
 import UpdateOperator from './components/operator/UpdateOperator';
+import CreateStation from "./components/station/CreateStation";
+import UpdateStation from "./components/station/UpdateStation";
 
 function App() {
   return (
@@ -40,6 +42,9 @@ function App() {
 
           <Route path="operators" element={<CreateOperator />} />
           <Route path="operators/:slug" element={<UpdateOperator />} />
+
+          <Route path="stations" element={<CreateStation />} />
+          <Route path="stations/:slug" element={<UpdateStation />} />
         </Route>
 
         <Route path="change-password" element={<ChangePassword />} />
